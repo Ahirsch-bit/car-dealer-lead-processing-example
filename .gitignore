@@ -1,0 +1,98 @@
+﻿# Build results
+bin/
+obj/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+.rider/
+.idea/
+*.user
+*.userosscache
+*.sln.docstates
+*.suo
+
+# Visual Studio Code
+.vscode/
+*.code-workspace
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+*.sln.DotSettings.user
+
+# ReSharper is a .NET coding add-in
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Package management
+packages/
+.packages/
+paket-files/
+.paket/paket.exe
+
+# Testing
+TestResults/
+.coverage
+*.trx
+
+# Local environment variables
+.env
+.env.local
+.env.*.local
+
+# Application settings (local overrides)
+appsettings.Development.json
+appsettings.Production.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.#*
+
+# Node modules (if using npm for frontend dependencies)
+node_modules/
+npm-debug.log
+
+# Application Insights
+ApplicationInsights.config
+
+# macOS
+.AppleDouble
+.LSOverride
+._*
+
+# Linux
+.directory
+
+# Windows
+ehthumbs.db
+Desktop.ini
+

@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarDealer.LeadAutomation", "CarDealer.LeadAutomation.csproj", "{8BB0CB15-A43B-468C-8753-B6F8D3AEDDCD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8BB0CB15-A43B-468C-8753-B6F8D3AEDDCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BB0CB15-A43B-468C-8753-B6F8D3AEDDCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BB0CB15-A43B-468C-8753-B6F8D3AEDDCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BB0CB15-A43B-468C-8753-B6F8D3AEDDCD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
