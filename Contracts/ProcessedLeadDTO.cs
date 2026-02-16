@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using CarDealer.LeadAutomation.Repository.DTOs;
 
 namespace CarDealer.LeadAutomation.Contracts;
 
@@ -7,49 +8,19 @@ public class ProcessedLeadDTO
     [JsonPropertyName("original_lead")]
     public LeadRequest OriginalLead { get; set; }
     [JsonPropertyName("branch_info")]
-    public ProcessedLeadBranchInfo BranchInfo { get; set; }
+    public BranchDTO BranchInfo { get; set; }
     [JsonPropertyName("car_info")]
-    public ProcessedLeadCarInfo CarInfo { get; set; }
+    public ModelDTO? CarInfo { get; set; }
     [JsonPropertyName("enrichment")]
     public ProcessedLeadEnrichment Enrichment { get; set; }
     [JsonPropertyName("score")]
     public int Score { get; set; }
     [JsonPropertyName("priority")]
-    public string Priority { get; set; }
+    public LeadPriority Priority { get; set; }
     [JsonPropertyName("assigned_to")]
-    public string AssignedTo { get; set; }
+    public string? AssignedTo { get; set; }
     [JsonPropertyName("status")]
     public string Status { get; set; }
-}
-
-public class ProcessedLeadBranchInfo
-{
-    [JsonPropertyName("branch_id")]
-    public string BranchId { get; set; }
-  
-    [JsonPropertyName("name")]
-    public string Name { get; set; }
-  
-    [JsonPropertyName("manager")]
-    public string Manager { get; set; }
-  
-    [JsonPropertyName("region")]
-    public string Region { get; set; }
-} 
-
-public class ProcessedLeadCarInfo
-{
-    [JsonPropertyName("model_id")]
-    public string ModelId { get; set; }
-  
-    [JsonPropertyName("model_name")]
-    public string ModelName { get; set; }
-  
-    [JsonPropertyName("category")]
-    public string Category { get; set; }
-  
-    [JsonPropertyName("price_range")]
-    public string PriceRange { get; set; }
 }
 
 public class ProcessedLeadEnrichment
@@ -98,7 +69,7 @@ public class ProcessedLeadPhoneInsights
 
 public enum LeadPriority
 {
-    High,
-    Medium,
-    Low
+    HOT,
+    WARM,
+    COLD
 }

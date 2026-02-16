@@ -28,7 +28,7 @@ public class GeographicInfo
 public class EmailInsights
 {
     public string? CustomerType { get; set; }
-    public string? TrustLevel { get; set; }
+    public ProcessedLeadTrustLevel TrustLevel { get; set; }
     public bool BusinessEmail { get; set; }
 }
 

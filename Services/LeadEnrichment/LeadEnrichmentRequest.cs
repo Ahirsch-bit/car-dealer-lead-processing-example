@@ -1,9 +1,10 @@
 ﻿using System.Text.Json;
 using CarDealer.LeadAutomation.Contracts;
+using CarDealer.LeadAutomation.Services.Interfaces;
 
 namespace CarDealer.LeadAutomation.Services.LeadEnrichment;
 
-public class LeadEnrichmentRequest
+public class LeadEnrichmentRequest: ILeadEnrichmentRequest
 {
     private readonly HttpClient _httpClient;
     private const string HOST = "http://localhost:8001";
