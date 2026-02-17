@@ -5,9 +5,11 @@ using CarDealer.LeadAutomation.Services;
 using CarDealer.LeadAutomation.Services.BackgroundTask;
 using CarDealer.LeadAutomation.Services.Interfaces;
 using CarDealer.LeadAutomation.Services.LeadEnrichment;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+builder.Services.AddValidatorsFromAssemblyContaining<LeadValidator>();
 builder.Services.AddSingleton<IBranchRepository, BranchRepository>();
 builder.Services.AddSingleton<IModelRepository, ModelRepository>();
 builder.Services.AddSingleton<IEmailValidator, EmailValidator>();
