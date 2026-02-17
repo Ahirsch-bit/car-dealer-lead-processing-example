@@ -1,4 +1,5 @@
 ﻿using CarDealer.LeadAutomation.Contracts;
+using CarDealer.LeadAutomation.Services.Interfaces;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,10 +10,12 @@ namespace CarDealer.LeadAutomation.Controllers;
 public class LeadsController : ControllerBase
 {
     private readonly IValidator<LeadRequest> _leadValidator;
+    private readonly ILeadsSerivice _leadsService;
 
-    public LeadsController(IValidator<LeadRequest> leadValidator)
+    public LeadsController(IValidator<LeadRequest> leadValidator, ILeadsSerivice leadsService)
     {
         _leadValidator = leadValidator;
+        _leadsService = leadsService;
     }
 
     [HttpPost]
@@ -29,8 +32,8 @@ public class LeadsController : ControllerBase
         {
             return BadRequest(validationResult.Errors);
         }
-        
-        //TODO: Process the lead (e.g., save to database, send notifications, etc.)
-        return Ok(new {status="Lead processed successfully"});
+
+        var processedLead =_leadsService.ProcessLeadAsync(request);
+        return Ok(processedLead);
     }
 }
