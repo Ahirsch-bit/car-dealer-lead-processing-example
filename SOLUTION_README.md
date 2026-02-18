@@ -65,8 +65,8 @@ The use of services and interfaces and the dependency injection are standard pra
 - The scoring outlined in the ASSIGNMENT_README allowed for a potential score of 110. This is possible with high priority lead with a high trust level email insight, verified phone wanting to buy a luxury car that is in stock. Since the max allowed score is 100, I implemented the logic to change a score above 100 to exactly 100. 
 - For the final enriched lead object, I reused existing objects when possible, and I created new objects when necessary. The enriched lead object is designed to be easily extendable in the future if additional fields need to be added.
 - Since the assignment specified fields that do not conform to the standard C# naming conventions, I used JsonPropertyName attributes to map them. This can also be done via Newtonsoft depending on the requirements of the system.
-- In a production environment, I most likely would have chosen to use MongoDB to store the processed leads, as I find their structure to be more flexible and better suited for this type of data. However, a structured DB can also work. For the scope of this project. 
-- I chose to use an in-memory dictionary to act as a "database" for simplicity, but this can easily be changed to use a db driver in production.
+- In a production environment, I most likely would have chosen to use MongoDB to store the processed leads, as I find their structure to be more flexible and better suited for this type of data. However, a structured DB can also work.
+- For the scope of this project, I chose to use an in-memory dictionary to act as a "database" for simplicity, but this can easily be changed to use a db driver in production.
 - I included an endpoint to get the leads from the database. It is possible to pull an individual lead by email or phone, or if those query params are left blank, it will return an array of all the leads. 
 - In production, I would likely implement a separate endpoint to pull multiple leads based on a certain criteria and possibly use pagination. 
 ### Step 6: Implement Structured Logging
