@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a production-grade automation system designed to process car dealer leads through a complete pipeline. The system includes API ingestion, validation, enrichment, and saving leads into a database. The application is built using C# and .NET, and is containerized using Docker for easy deployment.
+This project simulates an automated system to process leads with production principles in mind. The system includes API ingestion, validation, enrichment, and saving leads into a database. The application is built using C# and .NET, and is containerized using Docker for easy deployment.
 
 ---
 
