@@ -7,11 +7,13 @@ public class ModelRepository:IModelRepository
 {
     private readonly string _modelsFilePath;
     private List<ModelDTO>? _modelsCache;
+    private readonly ILogger<ModelRepository> _logger;
 
-    public ModelRepository(string? modelsFilePath = null)
+    public ModelRepository(ILogger<ModelRepository> logger, string? modelsFilePath = null)
     {
+        _logger = logger;
         // Default path relative to the application root
-        _modelsFilePath = modelsFilePath ?? Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Data", "car_models.txt");
+        _modelsFilePath = modelsFilePath ?? Path.Combine(AppContext.BaseDirectory, "Data", "car_models.txt");
     }
 
     /// <summary>
@@ -22,7 +24,8 @@ public class ModelRepository:IModelRepository
     {
         if (string.IsNullOrWhiteSpace(modelId))
         {
-            // TODO: Log error - Model ID cannot be null or empty
+            // Error: Model ID cannot be null or empty
+            _logger.LogError("Model ID cannot be null or empty");
             return null;
         }
 
@@ -38,10 +41,13 @@ public class ModelRepository:IModelRepository
         _modelsCache = ParseModelsFile();
         var model = _modelsCache.FirstOrDefault(m => m.ModelID == modelId);
         
-        return model ??
-               // Model not found: log error and return null
-               // TODO: Log error - Model with ID {modelId} not found in car_models.txt
-               null;
+        if (model == null)
+        {
+            // Error: Model not found
+            _logger.LogError("Model with ID {ModelId} not found in car_models.txt", modelId);
+        }
+        
+        return model;
     }
 
     /// <summary>
@@ -55,7 +61,8 @@ public class ModelRepository:IModelRepository
         {
             if (!File.Exists(_modelsFilePath))
             {
-                // TODO: Log error - Car models file not found at {_modelsFilePath}
+                // Error: Car models file not found
+                _logger.LogError("Car models file not found at {FilePath}", _modelsFilePath);
                 return models;
             }
 
@@ -159,7 +166,8 @@ public class ModelRepository:IModelRepository
         }
         catch (Exception ex)
         {
-            // TODO: Log error - Exception reading car models file: {ex.Message}
+            // Error: Exception reading car models file
+            _logger.LogError("Exception reading car models file: {Message}", ex.Message);
         }
 
         return models;

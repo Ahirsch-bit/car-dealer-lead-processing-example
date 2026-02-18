@@ -60,11 +60,12 @@ public class EmailValidator: IEmailValidator
         var unapproved = LoadEmailList("Contracts/Validators/UnapprovedEmails.json");
 
         email = email.ToLowerInvariant();
+        var domain = email.Split('@').LastOrDefault().Split('.').FirstOrDefault();
 
-        if (approved.Contains(email))
+        if (approved.Contains(domain))
             return EmailCheckResult.Approved;
 
-        if (unapproved.Contains(email))
+        if (unapproved.Contains(domain))
             return EmailCheckResult.Unapproved;
 
         return EmailCheckResult.Unknown;

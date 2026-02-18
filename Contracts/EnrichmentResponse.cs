@@ -1,4 +1,6 @@
-﻿namespace CarDealer.LeadAutomation.Contracts;
+﻿using System.Text.Json.Serialization;
+
+namespace CarDealer.LeadAutomation.Contracts;
 
 public class EnrichmentResponse
 {
@@ -10,9 +12,12 @@ public class EnrichmentResponse
 public class EnrichmentData
 {
     public GeographicInfo? Geographic { get; set; }
+    [JsonPropertyName("email_insights")]
     public EmailInsights? EmailInsights { get; set; }
+    [JsonPropertyName("phone_insights")]
     public PhoneInsights? PhoneInsights { get; set; }
     public CustomerProfile? CustomerProfile { get; set; }
+    [JsonPropertyName("lead_priority")]
     public string? LeadPriority { get; set; }
     public DateTime EnrichedAt { get; set; }
 }
@@ -28,7 +33,8 @@ public class GeographicInfo
 public class EmailInsights
 {
     public string? CustomerType { get; set; }
-    public ProcessedLeadTrustLevel TrustLevel { get; set; }
+    [JsonPropertyName("trust_level")]
+    public string? TrustLevel { get; set; }
     public bool BusinessEmail { get; set; }
 }
 

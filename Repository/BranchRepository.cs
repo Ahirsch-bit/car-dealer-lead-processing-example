@@ -9,11 +9,13 @@ public class BranchRepository:IBranchRepository
     private const int DEFAULT_BRANCH_ID = 400;
     private readonly string _excelPath;
     private List<BranchDTO>? _branchesCache;
+    private readonly ILogger<BranchRepository> _logger;
 
-    public BranchRepository(string? excelPath = null)
+    public BranchRepository(ILogger<BranchRepository> logger, string? excelPath = null)
     {
+        _logger = logger;
         // Default path relative to the application root
-        _excelPath = excelPath ?? Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "Data", "branch_config.xlsx");
+        _excelPath = excelPath ?? Path.Combine(AppContext.BaseDirectory, "Data", "branch_config.xlsx");
     }
 
     /// <summary>
@@ -27,7 +29,7 @@ public class BranchRepository:IBranchRepository
         {
             if (!File.Exists(_excelPath))
             {
-                // TODO: Log warning - Excel file not found at {_excelPath}
+                _logger.LogWarning("Branch configuration Excel file not found at {ExcelPath}", _excelPath);
                 return branches;
             }
 
@@ -62,7 +64,7 @@ public class BranchRepository:IBranchRepository
         }
         catch (Exception ex)
         {
-            // TODO: Log error - Exception reading Excel file: {ex.Message}
+            _logger.LogError($"Exception reading Excel file: {ex.Message} \n {ex.StackTrace}", ex.Message);
         }
 
         return branches;
@@ -81,11 +83,12 @@ public class BranchRepository:IBranchRepository
 
         // Second attempt: reload from Excel and search
         _branchesCache = ReadExcelFile();
-        var branch = _branchesCache.FirstOrDefault(b => b.BranchID == branchId);
-        return branch ??
-               // Branch not found: return default branch 400 and log error
-               // TODO: Log error - Branch with ID {branchId} not found in Excel file. Returning default branch {DEFAULT_BRANCH_ID}
+        var branch = _branchesCache.FirstOrDefault(b => b.BranchID == branchId)??
+                     GetDefaultBranch(); 
+        _logger.LogWarning(
+                   $"Branch with ID {branchId} not found in Excel file. Returning default branch {DEFAULT_BRANCH_ID}");
                GetDefaultBranch();
+        return branch;
     }
 
     /// <summary>

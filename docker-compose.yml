@@ -1,0 +1,32 @@
+﻿version: '3.8'
+
+services:
+  # Main application (.NET)
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    environment:
+      - MOCK_API_URL=http://mock-api:8001
+      - DOTNET_URLS=http://+:5000
+      - ASPNETCORE_ENVIRONMENT=Development
+    depends_on:
+      - mock-api
+    networks:
+      - automation-network
+
+  # Mock enrichment API (Python)
+  mock-api:
+    build:
+      context: ./mock-api
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    networks:
+      - automation-network
+
+networks:
+  automation-network:
+    driver: bridge

@@ -12,7 +12,7 @@ public class ProcessedLeadDTO
     [JsonPropertyName("car_info")]
     public ModelDTO? CarInfo { get; set; }
     [JsonPropertyName("enrichment")]
-    public ProcessedLeadEnrichment Enrichment { get; set; }
+    public ProcessedLeadEnrichment? Enrichment { get; set; }
     [JsonPropertyName("score")]
     public int Score { get; set; }
     [JsonPropertyName("priority")]
@@ -49,13 +49,7 @@ public class ProcessedLeadGeographicEnrichment
 public class ProcessedLeadEmailInsights
 {
     [JsonPropertyName("trust_level")]
-    public ProcessedLeadTrustLevel TrustLevel { get; set; }
-}
-public enum ProcessedLeadTrustLevel
-{
-    High,
-    Medium,
-    Low
+    public string TrustLevel { get; set; }
 }
 
 public class ProcessedLeadPhoneInsights

@@ -19,28 +19,30 @@ public class LeadsSerivce: ILeadsSerivice
         _modelRepository= modelRepository;
     }
 
-    public async Task<ProcessedLeadDTO> ProcessLeadAsync(LeadRequest leadRequest)
+    public async Task<ProcessedLeadDTO> ProcessLeadAsync(LeadRequest leadRequest, CancellationToken ctx)
     {
         var branchData = _branchRepository.GetBranchById(int.Parse(leadRequest.BranchID));
         var modelData = _modelRepository.GetModelById(leadRequest.AskedCar);
 
-        var xenrichmentRequest = new EnrichmentRequest
+        var enrichmentRequest = new EnrichmentRequest
         {
             Email = leadRequest.Email,
             Phone = leadRequest.Phone,
             Area = leadRequest.Area,
         };
-        var enrichmentData = await _leadEnrichmentRequest.EnrichLeadAsync(xenrichmentRequest);
-
-        var score = enrichmentData.GetEnrichmentScore() + modelData.GetCarScore() > 100
-            ? 100
-            : enrichmentData.GetEnrichmentScore() + modelData.GetCarScore();
-        return new ProcessedLeadDTO()
+        ctx.ThrowIfCancellationRequested();
+        var enrichmentData = await _leadEnrichmentRequest.EnrichLeadAsync(enrichmentRequest);
+        var score = 0;
+        if (enrichmentData != null)
         {
-            OriginalLead = leadRequest,
-            BranchInfo = branchData,
-            CarInfo = modelData,
-            Enrichment = new ProcessedLeadEnrichment()
+            score = enrichmentData.GetEnrichmentScore() + modelData.GetCarScore() > 100
+                ? 100
+                : enrichmentData.GetEnrichmentScore() + modelData.GetCarScore();
+        }
+
+        var processedEnrichment = enrichmentData == null
+            ? null
+            : new ProcessedLeadEnrichment()
             {
                 Geographic = new ProcessedLeadGeographicEnrichment()
                 {
@@ -57,7 +59,13 @@ public class LeadsSerivce: ILeadsSerivice
                     Verified = enrichmentData.Data.PhoneInsights.Verified
                 },
                 LeadPriority = enrichmentData.Data.LeadPriority
-            },
+            };
+        return new ProcessedLeadDTO()
+        {
+            OriginalLead = leadRequest,
+            BranchInfo = branchData,
+            CarInfo = modelData,
+            Enrichment = processedEnrichment,
             Score = score,
             Priority = score switch
             {

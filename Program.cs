@@ -16,6 +16,13 @@ builder.Services.AddSingleton<IEmailValidator, EmailValidator>();
 builder.Services.AddSingleton<ILeadEnrichmentRequest, LeadEnrichmentRequest>();
 builder.Services.AddSingleton<ILeadsSerivice, LeadsSerivce>();
 builder.Services.AddSingleton<ILeadProcessingQueue, LeadProcessingQueue>();
+builder.Services.AddSingleton<ILeadsStore, LeadStoreDb>();
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole (options =>
+{
+    options.IncludeScopes = false;
+    options.TimestampFormat = "yyyy-MM-dd HH:mm:ss.fff ";
+});
 builder.Services.AddHostedService<LeadQueueService>();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
