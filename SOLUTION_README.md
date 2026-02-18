@@ -76,7 +76,7 @@ The use of services and interfaces and the dependency injection are standard pra
 ### Step 7: Infrastructure & Observability
 - The Dockerfile is designed to be self-contained so that no additional frameworks or SDKS are necessary to run the application. 
 - The original docker-compose.yml file was built with a Python service in mind, so I modified it to work with ASP.NET Core. 
-- The project fully runs using ```docker-compose up```, however, for first time setup of after code changes, i5 iw recommended to use ```docker-compose up --build``` to ensure that the latest code changes are included in the container.
+- The project fully runs using ```docker-compose up```, however, for first time setup of after code changes, it is recommended to use ```docker-compose up --build``` to ensure that the latest code changes are included in the container.
 
 ### Additional Production Considerations
 - In production, I would most likely use a message broker like RabbitMQ or Azure Service Bus to handle the asynchronous processing of leads, rather than using a background service. This would allow for better scalability and reliability, as well as easier monitoring and management of the processing pipeline.
